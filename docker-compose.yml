@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+  app:
+    depends_on:
+      - db
+    build: .
+    container_name: lanit_test_app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lanit
+    ports:
+      - "8080:8080"
+    links:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: lanit_postgres
+    ports:
+      - "5432:5432"
+    volumes:
+        - ~/db/postgres/lanit2/data:/var/lib/postgresql/data/pgdata
+    environment:
+        - POSTGRES_PASSWORD=lanit
+        - POSTGRES_USER=lanit
+        - POSTGRES_DB=lanit
+        - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: always
