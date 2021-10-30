@@ -1,8 +1,6 @@
 package com.lanit.lanittesttask.controller;
 
 import com.lanit.lanittesttask.dto.Statistics;
-import com.lanit.lanittesttask.service.CarService;
-import com.lanit.lanittesttask.service.PersonService;
 import com.lanit.lanittesttask.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

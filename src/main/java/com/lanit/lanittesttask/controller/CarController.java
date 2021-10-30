@@ -21,11 +21,6 @@ public class CarController {
 
     private final CarService carService;
 
-    @PostConstruct
-    public void init(){
-        log.info("CarController is ready");
-    }
-
     @PostMapping
     public ResponseEntity<Void> saveCar(@RequestBody @Valid SaveCarDto saveCarDto){
         log.info("{} is valid", saveCarDto);

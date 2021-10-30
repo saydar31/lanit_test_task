@@ -3,17 +3,12 @@ package com.lanit.lanittesttask.service.impl;
 import com.lanit.lanittesttask.dto.SaveCarDto;
 import com.lanit.lanittesttask.exception.ValidationException;
 import com.lanit.lanittesttask.model.Car;
-import com.lanit.lanittesttask.model.Person;
 import com.lanit.lanittesttask.repository.CarRepository;
-import com.lanit.lanittesttask.repository.PersonRepository;
 import com.lanit.lanittesttask.service.CarService;
 import com.lanit.lanittesttask.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Component
 @RequiredArgsConstructor
@@ -24,6 +19,7 @@ public class CarServiceImpl implements CarService {
     private final ModelMapper modelMapper;
 
     private static final int ABLE_TO_DRIVE_AGE = 18;
+    private static final String VENDOR_SEPARATOR = "-";
 
     @Override
     public void save(SaveCarDto saveCarDto) {
@@ -42,7 +38,10 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public long getUniqueVendorCount() {
-        return carRepository.countAllByVendor();
+        return carRepository.getModels().stream()
+                .map(model -> model.substring(0, model.indexOf(VENDOR_SEPARATOR)))
+                .distinct()
+                .count();
     }
 
     @Override
